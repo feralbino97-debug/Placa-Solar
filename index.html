@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SunMax | Energia Solar Fotovoltaica - Economize até 95% na conta de luz</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { outfit: ['Outfit','sans-serif'], inter: ['Inter','sans-serif'] },
+      colors: {
+        sun: { 50:'#fffbeb', 100:'#fef3c7', 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706' },
+        night: { 900:'#0f172a', 800:'#1e293b', 700:'#334155' }
+      }
+    }
+  }
+}
+</script>
+<style>
+*{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif}
+h1,h2,h3,h4{font-family:'Outfit',sans-serif}
+.range-slider::-webkit-slider-thumb{appearance:none;width:24px;height:24px;border-radius:50%;background:#f59e0b;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.2);cursor:pointer;margin-top:-9px}
+.range-slider::-webkit-slider-runnable-track{height:6px;background:#e2e8f0;border-radius:999px}
+.hero-gradient{background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(251,191,36,.25), transparent 60%), linear-gradient(180deg, #fff 0%, #fffbeb 100%)}
+.glass{backdrop-filter:blur(16px);background:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.6)}
+.card-hover{transition:all .35s cubic-bezier(.4,0,.2,1)}
+.card-hover:hover{transform:translateY(-6px);box-shadow:0 20px 40px -12px rgba(15,23,42,.12)}
+.reveal{opacity:0;transform:translateY(18px);transition:all .7s ease}
+.reveal.active{opacity:1;transform:none}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent);transform:skewX(-12deg);transition:left .7s}
+.shine:hover::after{left:130%}
+</style>
+</head>
+<body class="bg-white text-slate-800 antialiased">
+
+<!-- Top bar -->
+<div class="bg-night-900 text-white text-xs md:text-sm">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-2.5 flex flex-wrap justify-between items-center gap-2">
+    <div class="flex items-center gap-4 md:gap-6">
+      <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-sun-400"></i> (11) 99999-0000</span>
+      <span class="hidden md:flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-sun-400"></i> contato@sunmax.com.br</span>
+      <span class="hidden lg:flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-sun-400"></i> Atendemos todo o Brasil</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="hidden md:inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-medium"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> 2.847 sistemas instalados</span>
+      <a href="#simulador" class="bg-sun-500 hover:bg-sun-600 text-night-900 font-semibold px-4 py-1.5 rounded-full transition">Simule grátis</a>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 h-[72px] flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sun-400 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-amber-200">
+        <i data-lucide="sun" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <div class="font-outfit font-extrabold text-[22px] leading-none tracking-tight text-night-900">SunMax<span class="text-sun-500">.</span></div>
+        <div class="text-[10px] tracking-[0.18em] font-semibold text-slate-500 -mt-0.5">ENERGIA SOLAR</div>
+      </div>
+    </a>
+    <div class="hidden lg:flex items-center gap-8 font-medium text-sm text-slate-600">
+      <a href="#beneficios" class="hover:text-night-900">Vantagens</a>
+      <a href="#como-funciona" class="hover:text-night-900">Como Funciona</a>
+      <a href="#simulador" class="hover:text-night-900">Simulador</a>
+      <a href="#kits" class="hover:text-night-900">Kits</a>
+      <a href="#projetos" class="hover:text-night-900">Projetos</a>
+      <a href="#faq" class="hover:text-night-900">Dúvidas</a>
+    </div>
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="https://wa.me/5511999990000" target="_blank" class="flex items-center gap-2 border border-slate-200 px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-slate-50 transition"><i data-lucide="message-circle" class="w-4 h-4 text-emerald-600"></i> WhatsApp</a>
+      <a href="#contato" class="bg-night-900 text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-black transition">Solicitar Orçamento</a>
+    </div>
+    <button id="menuBtn" class="lg:hidden w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center"><i data-lucide="menu" class="w-5 h-5"></i></button>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t bg-white px-4 py-4 space-y-1">
+    <a href="#beneficios" class="block py-2.5 font-medium">Vantagens</a>
+    <a href="#como-funciona" class="block py-2.5 font-medium">Como Funciona</a>
+    <a href="#simulador" class="block py-2.5 font-medium">Simulador</a>
+    <a href="#kits" class="block py-2.5 font-medium">Kits</a>
+    <a href="#contato" class="block mt-3 bg-night-900 text-white text-center py-3 rounded-full font-bold">Solicitar Orçamento</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-gradient relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 pt-8 md:pt-14 pb-10 md:pb-16">
+    <div class="grid lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-6">
+        <div class="inline-flex items-center gap-2 bg-white border border-amber-100 shadow-sm rounded-full px-3 py-1.5 text-xs font-semibold">
+          <span class="bg-emerald-500 text-white px-2 py-0.5 rounded-full text-[10px]">NOVO</span>
+          <span class="text-slate-600">Financiamento em até 84x • Aprovação em 24h</span>
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-400"></i>
+        </div>
+        <h1 class="font-outfit font-extrabold text-[36px] md:text-[54px] leading-[0.95] tracking-tight text-night-900 mt-5">
+          Sua conta de luz<br>
+          <span class="bg-gradient-to-r from-sun-500 to-orange-500 bg-clip-text text-transparent">vira investimento</span>
+        </h1>
+        <p class="text-slate-600 text-[16px] md:text-[18px] leading-relaxed mt-4 max-w-xl">Economize até <b class="text-night-900">95% na conta de energia</b> com placas solares homologadas. Payback em até 3 anos e garantia de 25 anos de performance.</p>
+        
+        <div class="flex flex-wrap gap-3 mt-7">
+          <a href="#simulador" class="shine bg-sun-500 hover:bg-sun-600 text-night-900 font-extrabold px-7 py-4 rounded-full inline-flex items-center gap-2 shadow-lg shadow-amber-200 transition">
+            <i data-lucide="calculator" class="w-5 h-5"></i> Simular Economia Grátis
+          </a>
+          <a href="#projetos" class="bg-white border border-slate-200 hover:border-slate-300 font-semibold px-7 py-4 rounded-full inline-flex items-center gap-2 transition">
+            <i data-lucide="play-circle" class="w-5 h-5"></i> Ver projetos reais
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 mt-8">
+          <div class="flex -space-x-2">
+            <img src="https://i.pravatar.cc/100?img=32" class="w-9 h-9 rounded-full border-2 border-white object-cover">
+            <img src="https://i.pravatar.cc/100?img=14" class="w-9 h-9 rounded-full border-2 border-white object-cover">
+            <img src="https://i.pravatar.cc/100?img=15" class="w-9 h-9 rounded-full border-2 border-white object-cover">
+            <div class="w-9 h-9 rounded-full bg-night-900 text-white border-2 border-white flex items-center justify-center text-xs font-bold">+2k</div>
+          </div>
+          <div class="text-sm">
+            <div class="flex items-center gap-1 text-amber-500"><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i> <span class="text-night-900 font-bold ml-1">4.9/5</span></div>
+            <div class="text-slate-500 text-xs">2.847 clientes satisfeitos</div>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-xs font-semibold text-slate-600 bg-white border rounded-full px-3 py-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Reclame_Aqui_logo.png" class="h-4 object-contain opacity-70" alt="">
+            Ótimo • 8.9/10
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mt-8 max-w-lg">
+          <div class="bg-white rounded-2xl border p-4 text-center">
+            <div class="text-2xl font-extrabold text-night-900">-95%</div><div class="text-xs text-slate-500 font-medium">na conta de luz</div>
+          </div>
+          <div class="bg-white rounded-2xl border p-4 text-center">
+            <div class="text-2xl font-extrabold text-night-900">25 anos</div><div class="text-xs text-slate-500 font-medium">de garantia</div>
+          </div>
+          <div class="bg-white rounded-2xl border p-4 text-center">
+            <div class="text-2xl font-extrabold text-night-900">3 anos</div><div class="text-xs text-slate-500 font-medium">payback médio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 relative">
+        <div class="relative rounded-[32px] overflow-hidden shadow-2xl border-[6px] border-white bg-slate-100">
+          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=900&q=80&auto=format&fit=crop" alt="Casa com placas solares" class="w-full h-[420px] md:h-[560px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-night-900/40 via-transparent to-transparent"></div>
+          
+          <!-- floating card top -->
+          <div class="absolute top-4 left-4 md:top-6 md:left-6 glass rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center"><i data-lucide="zap" class="w-5 h-5"></i></div>
+            <div>
+              <div class="text-xs text-slate-500 font-semibold">Gerando agora</div>
+              <div class="font-extrabold text-night-900 leading-none">8,42 kW</div>
+              <div class="text-xs text-emerald-600 font-semibold">● 100% da demanda</div>
+            </div>
+          </div>
+          <!-- floating card bottom -->
+          <div class="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 bg-night-900 text-white rounded-[20px] p-4 md:p-5 flex items-center justify-between shadow-2xl">
+            <div>
+              <div class="text-xs text-white/60 font-semibold tracking-widest">ECONOMIA ACUMULADA</div>
+              <div class="font-extrabold text-2xl md:text-3xl tracking-tight">R$ 47.320<span class="text-sun-400">,00</span></div>
+              <div class="text-xs text-white/60">em 3 anos • 28.5 MWh gerados</div>
+            </div>
+            <div class="hidden md:flex w-14 h-14 rounded-2xl bg-sun-500 text-night-900 items-center justify-center"><i data-lucide="trending-up" class="w-7 h-7"></i></div>
+          </div>
+          <!-- badge -->
+          <div class="absolute top-4 right-4 md:top-6 md:right-6 bg-white rounded-full px-3 py-2 flex items-center gap-2 text-xs font-bold shadow-lg">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> Monitoramento 24h
+          </div>
+        </div>
+        <!-- deco -->
+        <div class="absolute -z-10 -bottom-6 -right-6 w-72 h-72 bg-amber-200 rounded-full blur-[60px] opacity-40"></div>
+        <div class="absolute -z-10 -top-10 -left-10 w-72 h-72 bg-orange-100 rounded-full blur-[60px] opacity-60"></div>
+      </div>
+    </div>
+
+    <!-- Logos -->
+    <div class="mt-10 md:mt-14 border-y bg-white/60 backdrop-blur">
+      <div class="flex flex-wrap justify-center md:justify-between items-center gap-4 md:gap-6 py-4 text-[11px] tracking-widest font-bold text-slate-400">
+        <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> HOMOLOGADO ANEEL</span>
+        <span class="flex items-center gap-2"><i data-lucide="award" class="w-4 h-4"></i> INMETRO A</span>
+        <span>WEG</span><span>TRINA SOLAR</span><span>FRONIUS</span><span>CANADIAN SOLAR</span><span>GROWATT</span><span>INTELBRAS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Beneficios -->
+<section id="beneficios" class="py-14 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="max-w-3xl">
+      <div class="inline-flex items-center gap-2 text-sun-600 font-bold text-xs tracking-widest"><span class="w-8 h-[2px] bg-sun-500"></span> POR QUE ENERGIA SOLAR?</div>
+      <h2 class="font-outfit font-bold text-3xl md:text-[42px] leading-none tracking-tight text-night-900 mt-3">Muito além da economia.<br><span class="text-slate-400">Um investimento inteligente.</span></h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mt-10">
+      <div class="card-hover bg-amber-50/70 border border-amber-100 rounded-[24px] p-7">
+        <div class="w-12 h-12 rounded-2xl bg-white border flex items-center justify-center text-sun-600 shadow-sm"><i data-lucide="wallet" class="w-6 h-6"></i></div>
+        <h3 class="font-bold text-lg mt-4">Economia de até 95%</h3>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">Reduza drasticamente sua conta de luz e proteja-se contra aumentos da tarifa. Sistema se paga em 3 anos.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-sun-600">Simular minha economia <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+      </div>
+      <div class="card-hover bg-emerald-50/60 border border-emerald-100 rounded-[24px] p-7">
+        <div class="w-12 h-12 rounded-2xl bg-white border flex items-center justify-center text-emerald-600 shadow-sm"><i data-lucide="home" class="w-6 h-6"></i></div>
+        <h3 class="font-bold text-lg mt-4">Valoriza seu imóvel em 10%</h3>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">Imóveis com energia solar vendem mais rápido e com valorização comprovada pelo mercado.</p>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5"></i> Diferencial competitivo</li>
+          <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500 mt-0.5"></i> Atrativo para compradores</li>
+        </ul>
+      </div>
+      <div class="card-hover bg-sky-50/70 border border-sky-100 rounded-[24px] p-7">
+        <div class="w-12 h-12 rounded-2xl bg-white border flex items-center justify-center text-sky-600 shadow-sm"><i data-lucide="leaf" class="w-6 h-6"></i></div>
+        <h3 class="font-bold text-lg mt-4">100% sustentável</h3>
+        <p class="text-sm text-slate-600 mt-2 leading-relaxed">1 kWp evita ~1,2 tonelada de CO₂ por ano. Equivalente a plantar 88 árvores.</p>
+        <div class="mt-4 flex items-center gap-2 text-xs font-semibold">
+          <span class="bg-white border px-2.5 py-1 rounded-full">🌳 88 árvores/ano</span>
+          <span class="bg-white border px-2.5 py-1 rounded-full">♻️ Energia limpa</span>
+        </div>
+      </div>
+      <div class="card-hover bg-white border rounded-[24px] p-7">
+        <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center"><i data-lucide="wrench" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-lg mt-4">Manutenção quase zero</h3>
+        <p class="text-sm text-slate-600 mt-2">Basta limpeza periódica. Sem partes móveis, vida útil superior a 25 anos.</p>
+      </div>
+      <div class="card-hover bg-white border rounded-[24px] p-7">
+        <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+        <h3 class="font-bold text-lg mt-4">Monitoramento no celular</h3>
+        <p class="text-sm text-slate-600 mt-2">App em tempo real: geração, economia e alertas. Controle total na palma da mão.</p>
+      </div>
+      <div class="card-hover bg-night-900 text-white rounded-[24px] p-7 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-sun-500 rounded-full blur-3xl opacity-20"></div>
+        <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center"><i data-lucide="badge-dollar-sign" class="w-6 h-6 text-sun-400"></i></div>
+        <h3 class="font-bold text-lg mt-4">Financiamento facilitado</h3>
+        <p class="text-sm text-white/70 mt-2">Parcelas menores que a economia gerada. Você já começa lucrando no primeiro mês.</p>
+        <a href="#contato" class="mt-4 inline-flex bg-white text-night-900 px-4 py-2 rounded-full text-sm font-bold">Consultar condições</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Como funciona -->
+<section id="como-funciona" class="py-14 md:py-20 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="text-center max-w-2xl mx-auto">
+      <div class="inline-flex bg-white border rounded-full px-3 py-1 text-xs font-bold tracking-widest text-slate-600">PASSO A PASSO</div>
+      <h2 class="font-outfit font-bold text-3xl md:text-4xl tracking-tight text-night-900 mt-3">Do orçamento à energia em 4 passos</h2>
+      <p class="text-slate-600 mt-3">Cuidamos de tudo: projeto, homologação, instalação e monitoramento.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-6 mt-10 relative">
+      <div class="hidden md:block absolute top-[42px] left-[8%] right-[8%] h-[2px] bg-gradient-to-r from-amber-200 via-slate-200 to-amber-200"></div>
+      <div class="relative bg-white rounded-[24px] border p-6 text-center card-hover">
+        <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto font-extrabold">01</div>
+        <h4 class="font-bold mt-4">Simulação gratuita</h4>
+        <p class="text-sm text-slate-600 mt-1">Análise da sua conta e do telhado via satélite em 2 minutos.</p>
+        <div class="mt-3 text-xs font-semibold text-slate-500 bg-slate-50 border rounded-full px-3 py-1 inline-flex">Sem compromisso</div>
+      </div>
+      <div class="relative bg-white rounded-[24px] border p-6 text-center card-hover">
+        <div class="w-14 h-14 rounded-2xl bg-slate-900 text-white flex items-center justify-center mx-auto"><i data-lucide="clipboard-check" class="w-6 h-6"></i></div>
+        <div class="absolute -top-2 -right-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">+ RÁPIDO</div>
+        <h4 class="font-bold mt-4">Projeto & Homologação</h4>
+        <p class="text-sm text-slate-600 mt-1">Projeto elétrico + aprovação na concessionária (Enel, CPFL, Cemig...).</p>
+      </div>
+      <div class="relative bg-white rounded-[24px] border p-6 text-center card-hover">
+        <div class="w-14 h-14 rounded-2xl bg-amber-400 text-night-900 flex items-center justify-center mx-auto"><i data-lucide="hammer" class="w-6 h-6"></i></div>
+        <h4 class="font-bold mt-4">Instalação em 1 dia</h4>
+        <p class="text-sm text-slate-600 mt-1">Equipe própria, estrutura de alumínio e cabeamento solar certificado.</p>
+      </div>
+      <div class="relative bg-night-900 text-white rounded-[24px] p-6 text-center card-hover">
+        <div class="w-14 h-14 rounded-2xl bg-sun-500 text-night-900 flex items-center justify-center mx-auto"><i data-lucide="sun" class="w-6 h-6"></i></div>
+        <h4 class="font-bold mt-4 text-white">Economia ativada</h4>
+        <p class="text-sm text-white/70 mt-1">Relógio bidirecional instalado. Sua conta cai até 95% já no próximo mês.</p>
+        <div class="mt-3 inline-flex items-center gap-1 text-sun-400 text-sm font-bold">Começar agora <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULADOR -->
+<section id="simulador" class="py-14 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="grid lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-5">
+        <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest"><i data-lucide="calculator" class="w-3.5 h-3.5"></i> SIMULADOR INTELIGENTE</div>
+        <h2 class="font-outfit font-bold text-3xl md:text-[38px] leading-none tracking-tight text-night-900 mt-3">Quanto você vai<br>economizar por mês?</h2>
+        <p class="text-slate-600 mt-3">Ajuste os valores e veja o dimensionamento ideal para seu perfil em tempo real.</p>
+
+        <div class="bg-white border rounded-[24px] p-6 md:p-7 mt-6 shadow-sm">
+          <div class="space-y-6">
+            <div>
+              <label class="flex justify-between text-sm font-semibold">Valor da conta de luz <span class="text-sun-600" id="contaLabel">R$ 650</span></label>
+              <input id="contaRange" type="range" min="150" max="3000" step="50" value="650" class="range-slider w-full mt-3">
+              <div class="flex justify-between text-xs text-slate-500 mt-1"><span>R$ 150</span><span>R$ 3.000</span></div>
+              <div class="mt-3 grid grid-cols-3 gap-2">
+                <button data-conta="350" class="contaPreset border rounded-full py-2 text-sm font-semibold hover:bg-slate-50">R$ 350</button>
+                <button data-conta="650" class="contaPreset border rounded-full py-2 text-sm font-semibold bg-night-900 text-white">R$ 650</button>
+                <button data-conta="1200" class="contaPreset border rounded-full py-2 text-sm font-semibold hover:bg-slate-50">R$ 1.200</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="text-sm font-semibold">Tarifa (R$/kWh)</label>
+                <div class="mt-2 relative">
+                  <input id="tarifaInput" type="number" step="0.05" value="0.95" class="w-full border rounded-xl px-3 py-3 pr-10 font-semibold">
+                  <span class="absolute right-3 top-3.5 text-xs font-bold text-slate-500">R$</span>
+                </div>
+              </div>
+              <div>
+                <label class="text-sm font-semibold">Região / Irradiação</label>
+                <select id="irradiacaoSelect" class="mt-2 w-full border rounded-xl px-3 py-3 font-semibold bg-white">
+                  <option value="4.6">Sul - 4.6 h/dia</option>
+                  <option value="5.0">Sudeste - 5.0 h/dia</option>
+                  <option value="5.4" selected>Nordeste - 5.4 h/dia</option>
+                  <option value="5.2">Centro-Oeste - 5.2 h/dia</option>
+                  <option value="4.9">Norte - 4.9 h/dia</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 border rounded-2xl p-4 flex items-center justify-between">
+              <div class="text-sm">
+                <div class="font-semibold">Tipo de imóvel</div>
+                <div class="text-slate-500 text-xs">Selecione para ajustar o consumo</div>
+              </div>
+              <div class="flex bg-white border rounded-full p-1">
+                <button data-tipo="residencial" class="tipoBtn bg-night-900 text-white px-4 py-1.5 rounded-full text-sm font-semibold">Residencial</button>
+                <button data-tipo="comercial" class="tipoBtn px-4 py-1.5 rounded-full text-sm font-semibold text-slate-600">Comercial</button>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 text-xs text-slate-500"><i data-lucide="info" class="w-4 h-4"></i> Cálculo com PR 75% e módulos de 550W. Valores estimados.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="bg-night-900 text-white rounded-[28px] p-6 md:p-8 relative overflow-hidden">
+          <div class="absolute -right-16 -top-16 w-72 h-72 bg-sun-500 rounded-full blur-[70px] opacity-20"></div>
+          <div class="absolute -left-10 -bottom-10 w-72 h-72 bg-emerald-500 rounded-full blur-[70px] opacity-10"></div>
+
+          <div class="flex flex-wrap justify-between items-start gap-4 relative">
+            <div>
+              <div class="text-xs tracking-widest font-bold text-white/60">RESULTADO DA SIMULAÇÃO</div>
+              <div class="font-outfit font-extrabold text-3xl md:text-4xl mt-1">Economia de <span id="economiaMensal" class="text-sun-400">R$ 617</span>/mês</div>
+              <div class="text-white/70 text-sm mt-1"><span id="economiaAnual">R$ 7.410</span> por ano • Payback em <b id="payback" class="text-white">3,1 anos</b></div>
+            </div>
+            <div class="bg-white text-night-900 rounded-2xl px-4 py-3 text-center">
+              <div class="text-xs font-bold tracking-widest text-slate-500">SISTEMA IDEAL</div>
+              <div class="font-extrabold text-2xl leading-none" id="potenciaTxt">4,62 kWp</div>
+              <div class="text-xs font-semibold text-slate-600" id="placasTxt">9 placas de 550W</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 mt-6 relative">
+            <div class="bg-white/10 backdrop-blur border border-white/10 rounded-2xl p-4 text-center">
+              <div class="text-white/60 text-xs font-bold tracking-widest">ÁREA NECESSÁRIA</div>
+              <div class="font-extrabold text-xl mt-1" id="areaTxt">21,6 m²</div>
+              <div class="text-xs text-white/60">telhado</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/10 rounded-2xl p-4 text-center">
+              <div class="text-white/60 text-xs font-bold tracking-widest">GERAÇÃO/mês</div>
+              <div class="font-extrabold text-xl mt-1" id="geracaoTxt">684 kWh</div>
+              <div class="text-xs text-white/60" id="consumoTxt">consumo 684 kWh</div>
+            </div>
+            <div class="bg-sun-500 text-night-900 rounded-2xl p-4 text-center">
+              <div class="text-xs font-bold tracking-widest opacity-70">INVESTIMENTO</div>
+              <div class="font-extrabold text-xl mt-1" id="investTxt">R$ 18.900</div>
+              <div class="text-xs font-semibold opacity-70">à vista ou 84x</div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-4 md:p-5 mt-6 text-night-900">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold">Projeção de economia em 25 anos</h4>
+              <span class="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-1 rounded-full" id="total25">R$ 298.400</span>
+            </div>
+            <canvas id="chart" height="140" class="w-full mt-4"></canvas>
+            <div class="grid grid-cols-3 gap-3 mt-4 text-center">
+              <div class="bg-slate-50 border rounded-xl p-3"><div class="text-xs text-slate-500 font-semibold">CO₂ evitado/ano</div><div class="font-extrabold" id="co2Txt">5,5 ton</div></div>
+              <div class="bg-slate-50 border rounded-xl p-3"><div class="text-xs text-slate-500 font-semibold">Árvores equiv.</div><div class="font-extrabold" id="arvoresTxt">396</div></div>
+              <div class="bg-slate-50 border rounded-xl p-3"><div class="text-xs text-slate-500 font-semibold">Economia 1º ano</div><div class="font-extrabold text-emerald-600" id="eco1ano">R$ 7.410</div></div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 mt-6 relative">
+            <a href="#contato" class="bg-sun-500 hover:bg-sun-600 text-night-900 font-extrabold px-6 py-3 rounded-full inline-flex items-center gap-2 transition"><i data-lucide="file-text" class="w-5 h-5"></i> Quero orçamento exato</a>
+            <button id="shareBtn" class="bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold px-6 py-3 rounded-full inline-flex items-center gap-2 transition"><i data-lucide="share-2" class="w-4 h-4"></i> Compartilhar simulação</button>
+          </div>
+          <p class="text-xs text-white/50 mt-3 relative">✓ Sem compromisso • Resposta em até 2h • Instalação em 15 dias</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Kits -->
+<section id="kits" class="py-14 md:py-20 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="flex flex-wrap justify-between items-end gap-4">
+      <div>
+        <div class="text-sun-600 font-bold text-xs tracking-widest">KITS MAIS VENDIDOS</div>
+        <h2 class="font-outfit font-bold text-3xl md:text-4xl tracking-tight text-night-900 mt-2">Escolha o kit ideal para<br>seu consumo</h2>
+      </div>
+      <div class="flex items-center gap-2 bg-white border rounded-full p-1">
+        <button class="kitFilter bg-night-900 text-white px-5 py-2 rounded-full text-sm font-bold" data-filter="todos">Todos</button>
+        <button class="kitFilter px-5 py-2 rounded-full text-sm font-bold text-slate-600" data-filter="residencial">Residencial</button>
+        <button class="kitFilter px-5 py-2 rounded-full text-sm font-bold text-slate-600" data-filter="empresarial">Empresarial</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-8">
+      <!-- Kit 1 -->
+      <div data-cat="residencial" class="kitCard bg-white rounded-[28px] border p-6 md:p-7 card-hover flex flex-col">
+        <div class="flex justify-between items-start">
+          <span class="bg-amber-100 text-amber-700 border border-amber-200 text-xs font-bold px-3 py-1 rounded-full">MAIS ECONÔMICO</span>
+          <span class="text-xs font-semibold text-slate-500">A partir de</span>
+        </div>
+        <h3 class="font-outfit font-bold text-2xl mt-3">Kit 4,4 kWp</h3>
+        <p class="text-sm text-slate-500">8 placas 550W • Ideal para contas de R$ 350 a R$ 550</p>
+        <div class="mt-4 flex items-baseline gap-2"><span class="font-extrabold text-3xl text-night-900">R$ 14.900</span><span class="text-sm text-slate-500">ou 84x R$ 289</span></div>
+        <ul class="mt-5 space-y-2.5 text-sm">
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Geração média 520 kWh/mês</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Inversor Growatt 4kW</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Estrutura e cabeamento inclusos</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Homologação inclusa</li>
+        </ul>
+        <div class="mt-6 grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-50 border rounded-xl py-2"><div class="font-bold">8</div><div class="text-slate-500">placas</div></div>
+          <div class="bg-slate-50 border rounded-xl py-2"><div class="font-bold">19 m²</div><div class="text-slate-500">área</div></div>
+          <div class="bg-slate-50 border rounded-xl py-2"><div class="font-bold">25 anos</div><div class="text-slate-500">garantia</div></div>
+        </div>
+        <a href="#contato" class="mt-6 w-full bg-white border-2 border-night-900 text-night-900 font-bold py-3 rounded-full text-center hover:bg-night-900 hover:text-white transition">Solicitar este kit</a>
+      </div>
+
+      <!-- Kit 2 destaque -->
+      <div data-cat="residencial" class="kitCard bg-night-900 text-white rounded-[28px] p-6 md:p-7 card-hover flex flex-col relative overflow-hidden border border-night-800">
+        <div class="absolute -right-10 -top-10 w-48 h-48 bg-sun-500 rounded-full blur-3xl opacity-20"></div>
+        <div class="flex justify-between items-start relative">
+          <span class="bg-sun-500 text-night-900 text-xs font-extrabold px-3 py-1 rounded-full">MAIS VENDIDO ★</span>
+          <span class="text-xs font-semibold text-white/60">Melhor custo benefício</span>
+        </div>
+        <h3 class="font-outfit font-bold text-2xl mt-3 relative">Kit 8,25 kWp</h3>
+        <p class="text-sm text-white/60 relative">15 placas 550W • Contas de R$ 650 a R$ 1.100</p>
+        <div class="mt-4 flex items-baseline gap-2 relative"><span class="font-extrabold text-3xl">R$ 22.900</span><span class="text-sm text-white/60">ou 84x R$ 445</span></div>
+        <ul class="mt-5 space-y-2.5 text-sm relative">
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-sun-400"></i> Geração média 975 kWh/mês</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-sun-400"></i> Inversor Fronius 8kW Wi-Fi</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-sun-400"></i> Monitoramento premium</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-sun-400"></i> Instalação em 1 dia</li>
+        </ul>
+        <div class="mt-6 grid grid-cols-3 gap-2 text-center text-xs relative">
+          <div class="bg-white/10 border border-white/10 rounded-xl py-2"><div class="font-bold">15</div><div class="text-white/60">placas</div></div>
+          <div class="bg-white/10 border border-white/10 rounded-xl py-2"><div class="font-bold">36 m²</div><div class="text-white/60">área</div></div>
+          <div class="bg-white/10 border border-white/10 rounded-xl py-2"><div class="font-bold">-92%</div><div class="text-white/60">economia</div></div>
+        </div>
+        <a href="#contato" class="mt-6 w-full bg-sun-500 text-night-900 font-extrabold py-3 rounded-full text-center hover:bg-sun-600 transition relative">Quero este kit</a>
+        <p class="text-center text-xs text-white/50 mt-2 relative">Entrega em 15 dias • 120 unidades em estoque</p>
+      </div>
+
+      <!-- Kit 3 -->
+      <div data-cat="empresarial" class="kitCard bg-white rounded-[28px] border p-6 md:p-7 card-hover flex flex-col">
+        <div class="flex justify-between items-start">
+          <span class="bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-bold px-3 py-1 rounded-full">PARA EMPRESAS</span>
+          <span class="text-xs font-semibold text-slate-500">Alta performance</span>
+        </div>
+        <h3 class="font-outfit font-bold text-2xl mt-3">Kit 15,4 kWp</h3>
+        <p class="text-sm text-slate-500">28 placas 550W • Contas acima de R$ 1.500</p>
+        <div class="mt-4 flex items-baseline gap-2"><span class="font-extrabold text-3xl text-night-900">R$ 38.900</span><span class="text-sm text-slate-500">ou 84x R$ 756</span></div>
+        <ul class="mt-5 space-y-2.5 text-sm">
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Geração média 1.820 kWh/mês</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> 2 inversores 7.5kW</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> Projeto e ART inclusos</li>
+          <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-500"></i> ROI em 2,8 anos</li>
+        </ul>
+        <div class="mt-6 bg-amber-50 border border-amber-100 rounded-xl p-3 flex items-center gap-3 text-sm">
+          <i data-lucide="trending-up" class="w-5 h-5 text-amber-600"></i><span class="font-semibold">Empresas economizam em média <b>R$ 19.800/ano</b></span>
+        </div>
+        <a href="#contato" class="mt-6 w-full bg-white border-2 border-night-900 text-night-900 font-bold py-3 rounded-full text-center hover:bg-night-900 hover:text-white transition">Falar com consultor B2B</a>
+      </div>
+    </div>
+
+    <div class="mt-6 bg-white border rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3 text-sm"><i data-lucide="shield-check" class="w-5 h-5 text-emerald-500"></i><span class="font-semibold">Todos os kits com garantia de 25 anos, homologação e seguro de 1 ano incluso.</span></div>
+      <a href="#contato" class="text-sm font-bold text-sun-600 hover:text-sun-700 inline-flex items-center gap-1">Ver condições de financiamento <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Projetos -->
+<section id="projetos" class="py-14 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="flex flex-wrap justify-between items-end gap-4">
+      <div>
+        <div class="text-sun-600 font-bold text-xs tracking-widest">PROJETOS REAIS</div>
+        <h2 class="font-outfit font-bold text-3xl md:text-4xl tracking-tight text-night-900 mt-2">Histórias de quem já<br>economiza com o sol</h2>
+      </div>
+      <div class="flex gap-2">
+        <button class="projFilter bg-night-900 text-white px-4 py-2 rounded-full text-sm font-bold" data-pf="todos">Todos</button>
+        <button class="projFilter border px-4 py-2 rounded-full text-sm font-bold" data-pf="residencial">Residencial</button>
+        <button class="projFilter border px-4 py-2 rounded-full text-sm font-bold" data-pf="comercial">Comercial</button>
+        <button class="projFilter border px-4 py-2 rounded-full text-sm font-bold" data-pf="rural">Rural</button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-8">
+      <div data-proj="residencial" class="projCard group rounded-[24px] overflow-hidden border bg-white card-hover">
+        <div class="relative h-56 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">Residencial • Alphaville - SP</span>
+          <span class="absolute bottom-3 right-3 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">-93% na conta</span>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold">Família Oliveira • 6,6 kWp</h4>
+          <p class="text-sm text-slate-600 mt-1">De R$ 890 para R$ 62/mês. 12 placas no telhado cerâmico.</p>
+          <div class="flex gap-2 mt-3 text-xs font-semibold"><span class="bg-slate-50 border px-2.5 py-1 rounded-full">12 placas</span><span class="bg-slate-50 border px-2.5 py-1 rounded-full">780 kWh/mês</span></div>
+        </div>
+      </div>
+      <div data-proj="comercial" class="projCard group rounded-[24px] overflow-hidden border bg-white card-hover">
+        <div class="relative h-56 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=700&q=80&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">Comercial • Curitiba - PR</span>
+          <span class="absolute bottom-3 right-3 bg-night-900 text-white px-3 py-1 rounded-full text-xs font-bold">Payback 2,9 anos</span>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold">Padaria Solar • 18 kWp</h4>
+          <p class="text-sm text-slate-600 mt-1">Economia de R$ 2.400/mês. Forno elétrico 100% solar.</p>
+          <div class="flex gap-2 mt-3 text-xs font-semibold"><span class="bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-full">32 placas</span><span class="bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-full">ROI 34% a.a.</span></div>
+        </div>
+      </div>
+      <div data-proj="rural" class="projCard group rounded-[24px] overflow-hidden border bg-white card-hover">
+        <div class="relative h-56 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700&q=80&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+          <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">Rural • Ribeirão Preto - SP</span>
+          <span class="absolute bottom-3 right-3 bg-sun-500 text-night-900 px-3 py-1 rounded-full text-xs font-bold">Irrigação solar</span>
+        </div>
+        <div class="p-5">
+          <h4 class="font-bold">Fazenda Santa Luz • 30 kWp</h4>
+          <p class="text-sm text-slate-600 mt-1">Bombeamento e resfriamento de leite com energia limpa.</p>
+          <div class="flex gap-2 mt-3 text-xs font-semibold"><span class="bg-slate-50 border px-2.5 py-1 rounded-full">Solo</span><span class="bg-slate-50 border px-2.5 py-1 rounded-full">3.400 kWh/mês</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Depoimentos -->
+<section class="py-14 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white border rounded-[24px] p-6 card-hover">
+        <div class="flex gap-1 text-amber-500"><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i></div>
+        <p class="mt-3 text-sm leading-relaxed text-slate-700">“Instalação impecável em 6 horas. Minha conta de R$ 720 foi para R$ 48. Atendimento nota 10 e app funciona perfeito.”</p>
+        <div class="flex items-center gap-3 mt-4">
+          <img src="https://i.pravatar.cc/100?img=5" class="w-10 h-10 rounded-full object-cover">
+          <div><div class="font-bold text-sm">Marcos Andrade</div><div class="text-xs text-slate-500">Jundiaí • 8,25 kWp • 14 meses</div></div>
+        </div>
+      </div>
+      <div class="bg-night-900 text-white rounded-[24px] p-6 card-hover relative overflow-hidden">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-sun-500 rounded-full blur-2xl opacity-20"></div>
+        <div class="flex gap-1 text-sun-400"><i data-lucide="star" class="w-4 h-4 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 fill-amber-400"></i><i data-lucide="star" class="w-4 h-4 fill-amber-400"></i></div>
+        <p class="mt-3 text-sm leading-relaxed text-white/90">“Para minha empresa foi transformador. Economia de R$ 18 mil no primeiro ano. Investimento que se paga e ainda valoriza o galpão.”</p>
+        <div class="flex items-center gap-3 mt-4">
+          <img src="https://i.pravatar.cc/100?img=33" class="w-10 h-10 rounded-full object-cover">
+          <div><div class="font-bold text-sm">Juliana Costa</div><div class="text-xs text-white/60">Campinas • 15,4 kWp • Empresarial</div></div>
+        </div>
+      </div>
+      <div class="bg-white border rounded-[24px] p-6 card-hover">
+        <div class="flex gap-1 text-amber-500"><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i><i data-lucide="star" class="w-4 h-4 fill-amber-500"></i></div>
+        <p class="mt-3 text-sm leading-relaxed text-slate-700">“Financiei em 60x e a parcela ficou menor que a economia. Já estou no lucro desde o mês 1. Recomendo de olhos fechados.”</p>
+        <div class="flex items-center gap-3 mt-4">
+          <img src="https://i.pravatar.cc/100?img=12" class="w-10 h-10 rounded-full object-cover">
+          <div><div class="font-bold text-sm">Roberto Silva</div><div class="text-xs text-slate-500">Sorocaba • 4,4 kWp • Financiado</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-14 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 grid lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-4">
+      <div class="text-sun-600 font-bold text-xs tracking-widest">FAQ • TIRE SUAS DÚVIDAS</div>
+      <h2 class="font-outfit font-bold text-3xl tracking-tight text-night-900 mt-2">Perguntas frequentes</h2>
+      <p class="text-slate-600 text-sm mt-3">Se ainda tiver dúvidas, fale direto com um especialista no WhatsApp.</p>
+      <a href="https://wa.me/5511999990000" target="_blank" class="mt-5 inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-5 py-3 rounded-full transition"><i data-lucide="message-circle" class="w-5 h-5"></i> Tirar dúvida no WhatsApp</a>
+      <div class="mt-6 bg-amber-50 border border-amber-100 rounded-2xl p-4 flex gap-3">
+        <i data-lucide="badge-check" class="w-6 h-6 text-amber-600 flex-shrink-0"></i>
+        <div class="text-sm"><b>Garantia de performance 25 anos:</b> se gerar menos que o projetado, compensamos a diferença.</div>
+      </div>
+    </div>
+    <div class="lg:col-span-8 space-y-3" id="faqList">
+      <div class="faqItem border rounded-2xl bg-white overflow-hidden">
+        <button class="faqBtn w-full flex justify-between items-center p-5 text-left font-semibold"><span>Quanto tempo dura uma placa solar?</span><i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition"></i></button>
+        <div class="faqContent hidden px-5 pb-5 text-sm text-slate-600 leading-relaxed">As placas têm vida útil de 30+ anos. Damos garantia de 25 anos de performance linear (mínimo 80% da potência original após 25 anos) e 12 anos contra defeitos de fabricação. Inversores têm garantia de 10 a 12 anos.</div>
+      </div>
+      <div class="faqItem border rounded-2xl bg-white overflow-hidden">
+        <button class="faqBtn w-full flex justify-between items-center p-5 text-left font-semibold"><span>Funciona em dias nublados ou à noite?</span><i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition"></i></button>
+        <div class="faqContent hidden px-5 pb-5 text-sm text-slate-600 leading-relaxed">Sim! Em dias nublados a geração cai para 20-40%, mas o sistema continua gerando. À noite você consome energia da rede, e os créditos gerados durante o dia compensam esse consumo (sistema on-grid com compensação da ANEEL).</div>
+      </div>
+      <div class="faqItem border rounded-2xl bg-white overflow-hidden">
+        <button class="faqBtn w-full flex justify-between items-center p-5 text-left font-semibold"><span>Preciso trocar o telhado?</span><i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition"></i></button>
+        <div class="faqContent hidden px-5 pb-5 text-sm text-slate-600 leading-relaxed">Na maioria dos casos não. Instalamos em telha cerâmica, metálica, fibrocimento e laje. Cada placa pesa ~21kg distribuídos, equivalente a uma pessoa pisando no telhado. Fazemos vistoria técnica antes.</div>
+      </div>
+      <div class="faqItem border rounded-2xl bg-white overflow-hidden">
+        <button class="faqBtn w-full flex justify-between items-center p-5 text-left font-semibold"><span>Como funciona o financiamento?</span><i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition"></i></button>
+        <div class="faqContent hidden px-5 pb-5 text-sm text-slate-600 leading-relaxed">Trabalhamos com BV, Santander e Sicredi. Taxas a partir de 1,19% a.m., até 84x, carência de até 120 dias. Em 80% dos casos a parcela é menor que a economia, então você já começa no positivo.</div>
+      </div>
+      <div class="faqItem border rounded-2xl bg-white overflow-hidden">
+        <button class="faqBtn w-full flex justify-between items-center p-5 text-left font-semibold"><span>Quanto tempo demora a instalação?</span><i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition"></i></button>
+        <div class="faqContent hidden px-5 pb-5 text-sm text-slate-600 leading-relaxed">Projeto e homologação levam 15-25 dias. A instalação física leva apenas 1 dia para sistemas residenciais e 2-3 dias para comerciais. Após vistoria da concessionária, o sistema já gera créditos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + Contato -->
+<section id="contato" class="py-10 md:py-16 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-6">
+    <div class="bg-night-900 rounded-[32px] p-6 md:p-10 relative overflow-hidden">
+      <div class="absolute -right-20 -top-20 w-[420px] h-[420px] bg-sun-500 rounded-full blur-[80px] opacity-15"></div>
+      <div class="grid lg:grid-cols-12 gap-8 relative">
+        <div class="lg:col-span-5 text-white">
+          <div class="inline-flex items-center gap-2 bg-white/10 border border-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-widest"><span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span> VAGAS LIMITADAS • JUNHO</div>
+          <h2 class="font-outfit font-bold text-3xl md:text-4xl leading-none tracking-tight mt-4">Pronto para zerar<br>sua conta de luz?</h2>
+          <p class="text-white/70 mt-3">Orçamento gratuito em 2 minutos. Sem compromisso, sem visita técnica paga.</p>
+          <div class="mt-6 space-y-3 text-sm">
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4 text-sun-400"></i></span><span><b>Resposta em até 2 horas</b> — consultor dedicado te chama no WhatsApp</span></div>
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4 text-sun-400"></i></span><span><b>Visita técnica grátis</b> — análise de telhado e sombreamento</span></div>
+            <div class="flex gap-3"><span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4 text-sun-400"></i></span><span><b>Desconto de R$ 800</b> fechando até 30/06</span></div>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-6 border-t border-white/10 pt-6">
+            <div class="flex items-center gap-3">
+              <img src="https://i.pravatar.cc/100?img=8" class="w-10 h-10 rounded-full object-cover border-2 border-white/20">
+              <div><div class="font-bold text-sm">Ana • Consultora</div><div class="text-xs text-white/60">Online agora</div></div>
+              <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
+            </div>
+            <div class="text-sm"><div class="font-bold">4.9 ★ (1.247 avaliações)</div><div class="text-white/60 text-xs">Google Meu Negócio</div></div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <form id="leadForm" class="bg-white rounded-[24px] p-6 md:p-7 shadow-xl">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-lg">Solicite seu orçamento gratuito</h3>
+              <span class="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full">100% gratuito</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4 mt-5">
+              <div>
+                <label class="text-xs font-bold tracking-widest text-slate-500">NOME COMPLETO</label>
+                <input required id="nome" placeholder="Ex: João Silva" class="mt-1.5 w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-300">
+              </div>
+              <div>
+                <label class="text-xs font-bold tracking-widest text-slate-500">WHATSAPP</label>
+                <input required id="whats" placeholder="(11) 99999-0000" class="mt-1.5 w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-300">
+              </div>
+              <div>
+                <label class="text-xs font-bold tracking-widest text-slate-500">CIDADE</label>
+                <input required placeholder="Ex: Campinas - SP" class="mt-1.5 w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-300">
+              </div>
+              <div>
+                <label class="text-xs font-bold tracking-widest text-slate-500">VALOR DA CONTA</label>
+                <select id="formConta" class="mt-1.5 w-full border rounded-xl px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-amber-300">
+                  <option>R$ 300 - R$ 500</option>
+                  <option selected>R$ 500 - R$ 900</option>
+                  <option>R$ 900 - R$ 1.500</option>
+                  <option>Acima de R$ 1.500</option>
+                </select>
+              </div>
+            </div>
+            <div class="mt-4">
+              <label class="text-xs font-bold tracking-widest text-slate-500">TIPO DE IMÓVEL</label>
+              <div class="grid grid-cols-3 gap-2 mt-1.5">
+                <label class="cursor-pointer"><input type="radio" name="imovel" class="peer sr-only" checked><div class="peer-checked:bg-night-900 peer-checked:text-white border rounded-xl py-3 text-center text-sm font-semibold">Casa</div></label>
+                <label class="cursor-pointer"><input type="radio" name="imovel" class="peer sr-only"><div class="peer-checked:bg-night-900 peer-checked:text-white border rounded-xl py-3 text-center text-sm font-semibold">Empresa</div></label>
+                <label class="cursor-pointer"><input type="radio" name="imovel" class="peer sr-only"><div class="peer-checked:bg-night-900 peer-checked:text-white border rounded-xl py-3 text-center text-sm font-semibold">Rural</div></label>
+              </div>
+            </div>
+            <button type="submit" class="w-full mt-6 bg-sun-500 hover:bg-sun-600 text-night-900 font-extrabold py-4 rounded-full inline-flex justify-center items-center gap-2 transition shadow-lg shadow-amber-200">
+              Receber meu orçamento no WhatsApp <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+            <p class="text-center text-xs text-slate-500 mt-3">🔒 Seus dados estão seguros. Não fazemos spam. Resposta em até 2h.</p>
+            <div class="flex justify-center gap-4 mt-4 text-xs font-semibold text-slate-500">
+              <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i> Site seguro</span>
+              <span class="flex items-center gap-1"><i data-lucide="lock" class="w-4 h-4"></i> Dados criptografados</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-white border-t">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 py-10">
+    <div class="grid md:grid-cols-12 gap-8">
+      <div class="md:col-span-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sun-400 to-orange-500 flex items-center justify-center text-white"><i data-lucide="sun" class="w-6 h-6"></i></div>
+          <div><div class="font-outfit font-extrabold text-xl leading-none">SunMax.</div><div class="text-[10px] tracking-[0.18em] font-bold text-slate-500">ENERGIA SOLAR</div></div>
+        </div>
+        <p class="text-sm text-slate-600 mt-4 leading-relaxed">Energia solar fotovoltaica com homologação, instalação e monitoramento completo. Mais de 2.800 famílias economizando com o sol.</p>
+        <div class="flex gap-2 mt-4">
+          <a href="#" class="w-9 h-9 rounded-full border flex items-center justify-center hover:bg-slate-50"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full border flex items-center justify-center hover:bg-slate-50"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full border flex items-center justify-center hover:bg-slate-50"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full border flex items-center justify-center hover:bg-slate-50"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+        </div>
+      </div>
+      <div class="md:col-span-2">
+        <div class="font-bold text-sm">Empresa</div>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600">
+          <li><a href="#" class="hover:text-night-900">Sobre nós</a></li>
+          <li><a href="#" class="hover:text-night-900">Projetos</a></li>
+          <li><a href="#" class="hover:text-night-900">Carreiras</a></li>
+          <li><a href="#" class="hover:text-night-900">Seja franqueado</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <div class="font-bold text-sm">Soluções</div>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600">
+          <li><a href="#" class="hover:text-night-900">Residencial</a></li>
+          <li><a href="#" class="hover:text-night-900">Empresarial</a></li>
+          <li><a href="#" class="hover:text-night-900">Agronegócio</a></li>
+          <li><a href="#" class="hover:text-night-900">Financiamento</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-4">
+        <div class="font-bold text-sm">Fale com a gente</div>
+        <div class="mt-3 space-y-2 text-sm">
+          <div class="flex gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-0.5 text-slate-400"></i> Av. Paulista, 1000 - São Paulo/SP • Filiais em 12 estados</div>
+          <div class="flex gap-2"><i data-lucide="phone" class="w-4 h-4 mt-0.5 text-slate-400"></i> (11) 99999-0000 • seg-sex 8h-18h</div>
+          <div class="flex gap-2"><i data-lucide="mail" class="w-4 h-4 mt-0.5 text-slate-400"></i> contato@sunmax.com.br</div>
+        </div>
+        <div class="mt-4 bg-slate-50 border rounded-xl p-3 flex items-center gap-3">
+          <i data-lucide="shield" class="w-8 h-8 text-emerald-600"></i>
+          <div class="text-xs"><b class="text-night-900">Empresa homologada ANEEL</b><br><span class="text-slate-500">CNPJ 12.345.678/0001-99 • CREA/SP 123456</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 pt-6 border-t flex flex-wrap justify-between gap-3 text-xs text-slate-500">
+      <span>© 2025 SunMax Energia Solar. Todos os direitos reservados.</span>
+      <span class="flex gap-4"><a href="#" class="hover:text-night-900">Privacidade</a><a href="#" class="hover:text-night-900">Termos</a><a href="#" class="hover:text-night-900">Garantia</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/5511999990000" target="_blank" class="fixed bottom-5 right-5 z-50 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full p-4 shadow-xl flex items-center gap-2 transition">
+  <i data-lucide="message-circle" class="w-6 h-6"></i><span class="hidden md:inline font-bold pr-1">Fale no WhatsApp</span>
+</a>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-night-900 text-white px-5 py-3 rounded-full text-sm font-semibold shadow-xl hidden z-50"></div>
+
+<script>
+lucide.createIcons();
+
+// mobile menu
+document.getElementById('menuBtn').addEventListener('click',()=>{
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+
+// FAQ accordion
+document.querySelectorAll('.faqBtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const content = btn.nextElementSibling;
+    const icon = btn.querySelector('[data-lucide="chevron-down"]');
+    const isHidden = content.classList.contains('hidden');
+    document.querySelectorAll('.faqContent').forEach(c=>c.classList.add('hidden'));
+    document.querySelectorAll('.faqBtn [data-lucide="chevron-down"]').forEach(i=>i.style.transform='rotate(0deg)');
+    if(isHidden){ content.classList.remove('hidden'); icon.style.transform='rotate(180deg)'; }
+  })
+});
+
+// Filters kits
+document.querySelectorAll('.kitFilter').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.kitFilter').forEach(x=>{ x.classList.remove('bg-night-900','text-white'); x.classList.add('text-slate-600'); });
+    b.classList.add('bg-night-900','text-white'); b.classList.remove('text-slate-600');
+    const f=b.dataset.filter;
+    document.querySelectorAll('.kitCard').forEach(c=>{
+      c.style.display = (f==='todos' || c.dataset.cat===f) ? 'flex' : 'none';
+    });
+  });
+});
+document.querySelectorAll('.projFilter').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.projFilter').forEach(x=>{ x.classList.remove('bg-night-900','text-white','border-night-900'); });
+    b.classList.add('bg-night-900','text-white');
+    const f=b.dataset.pf;
+    document.querySelectorAll('.projCard').forEach(c=>{
+      c.style.display = (f==='todos' || c.dataset.proj===f) ? 'block' : 'none';
+    });
+  });
+});
+
+// Simulador
+const contaRange = document.getElementById('contaRange');
+const contaLabel = document.getElementById('contaLabel');
+const tarifaInput = document.getElementById('tarifaInput');
+const irradiacaoSelect = document.getElementById('irradiacaoSelect');
+const economiaMensal = document.getElementById('economiaMensal');
+const economiaAnual = document.getElementById('economiaAnual');
+const paybackEl = document.getElementById('payback');
+const potenciaTxt = document.getElementById('potenciaTxt');
+const placasTxt = document.getElementById('placasTxt');
+const areaTxt = document.getElementById('areaTxt');
+const geracaoTxt = document.getElementById('geracaoTxt');
+const consumoTxt = document.getElementById('consumoTxt');
+const investTxt = document.getElementById('investTxt');
+const total25 = document.getElementById('total25');
+const co2Txt = document.getElementById('co2Txt');
+const arvoresTxt = document.getElementById('arvoresTxt');
+const eco1ano = document.getElementById('eco1ano');
+
+function formatBRL(v){ return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL', maximumFractionDigits:0}); }
+function formatBRL2(v){ return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+
+function calc(){
+  const conta = parseFloat(contaRange.value);
+  const tarifa = parseFloat(tarifaInput.value) || 0.95;
+  const hsp = parseFloat(irradiacaoSelect.value);
+  contaLabel.textContent = formatBRL(conta);
+
+  const consumoMensal = conta / tarifa;
+  const consumoDiario = consumoMensal / 30;
+  const pr = 0.75;
+  const potencia = consumoDiario / (hsp * pr); // kWp
+  const potenciaReal = Math.max(1.5, potencia);
+  const numPlacas = Math.ceil(potenciaReal*1000 / 550);
+  const area = numPlacas * 2.38;
+  const geracao = potenciaReal * hsp * 30 * pr;
+
+  // custo por kWp decrescente
+  let custoPorKwp = 4200;
+  if(potenciaReal>8) custoPorKwp=3800;
+  if(potenciaReal>12) custoPorKwp=3600;
+  if(potenciaReal<3) custoPorKwp=4800;
+  const investimento = Math.round(potenciaReal * custoPorKwp /100)*100;
+
+  const economiaMes = conta * 0.95;
+  const economiaAno = economiaMes*12;
+  const payback = investimento / economiaAno;
+
+  const co2 = potenciaReal * 1.2;
+  const arvores = Math.round(potenciaReal*88);
+  const total25v = economiaAno * 25 * 0.92; // considera reajuste médio
+
+  economiaMensal.textContent = formatBRL(economiaMes);
+  economiaAnual.textContent = formatBRL(economiaAno);
+  paybackEl.textContent = payback.toFixed(1).replace('.',',')+' anos';
+  potenciaTxt.textContent = potenciaReal.toFixed(2).replace('.',',')+' kWp';
+  placasTxt.textContent = numPlacas+' placas de 550W';
+  areaTxt.textContent = area.toFixed(1).replace('.',',')+' m²';
+  geracaoTxt.textContent = Math.round(geracao)+' kWh';
+  consumoTxt.textContent = 'consumo '+Math.round(consumoMensal)+' kWh';
+  investTxt.textContent = formatBRL(investimento);
+  total25.textContent = formatBRL(total25v);
+  co2Txt.textContent = co2.toFixed(1).replace('.',',')+' ton';
+  arvoresTxt.textContent = arvores;
+  eco1ano.textContent = formatBRL(economiaAno);
+
+  // atualizar presets highlight
+  document.querySelectorAll('.contaPreset').forEach(b=>{
+    const v=parseInt(b.dataset.conta);
+    if(Math.abs(v-conta)<26){ b.classList.add('bg-night-900','text-white'); b.classList.remove('hover:bg-slate-50'); }
+    else{ b.classList.remove('bg-night-900','text-white'); }
+  });
+
+  drawChart(economiaAno);
+}
+
+let chartCanvas = document.getElementById('chart');
+let ctx = chartCanvas.getContext('2d');
+
+function drawChart(economiaAno){
+  const w = chartCanvas.width = chartCanvas.clientWidth*2;
+  const h = chartCanvas.height = 140*2;
+  ctx.clearRect(0,0,w,h);
+  const padding = 40;
+  const anos = 25;
+  let values=[];
+  for(let i=1;i<=anos;i++){
+    // considera aumento tarifa 7% a.a. e degradação 0.5%
+    let v = economiaAno * Math.pow(1.07, i-1) * (1 - (i-1)*0.005);
+    values.push(v);
+  }
+  let cum=0;
+  let cumValues = values.map(v=> cum+=v);
+  const max = Math.max(...cumValues);
+  // grid
+  ctx.strokeStyle='#e2e8f0'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    let y = padding + (h-padding*2)*(i/4);
+    ctx.beginPath(); ctx.moveTo(padding,y); ctx.lineTo(w-padding,y); ctx.stroke();
+  }
+  // area
+  ctx.beginPath();
+  cumValues.forEach((v,i)=>{
+    let x = padding + (w-padding*2)*(i/(anos-1));
+    let y = h-padding - (v/max)*(h-padding*2);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.lineTo(w-padding, h-padding);
+  ctx.lineTo(padding, h-padding);
+  ctx.closePath();
+  let grad = ctx.createLinearGradient(0,0,0,h);
+  grad.addColorStop(0,'rgba(245,158,11,0.35)'); grad.addColorStop(1,'rgba(245,158,11,0)');
+  ctx.fillStyle=grad; ctx.fill();
+  // line
+  ctx.beginPath();
+  ctx.strokeStyle='#f59e0b'; ctx.lineWidth=4; ctx.lineJoin='round'; ctx.lineCap='round';
+  cumValues.forEach((v,i)=>{
+    let x = padding + (w-padding*2)*(i/(anos-1));
+    let y = h-padding - (v/max)*(h-padding*2);
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  // dots every 5 years
+  ctx.fillStyle='#0f172a';
+  [5,10,15,20,25].forEach(ano=>{
+    let idx=ano-1; let v=cumValues[idx];
+    let x = padding + (w-padding*2)*(idx/(anos-1));
+    let y = h-padding - (v/max)*(h-padding*2);
+    ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#0f172a';
+  });
+  // labels
+  ctx.fillStyle='#64748b'; ctx.font='11px Inter'; ctx.textAlign='center';
+  [1,5,10,15,20,25].forEach(ano=>{
+    let x = padding + (w-padding*2)*((ano-1)/(anos-1));
+    ctx.fillText(ano+'a', x, h-8);
+  });
+}
+
+contaRange.addEventListener('input', calc);
+tarifaInput.addEventListener('input', calc);
+irradiacaoSelect.addEventListener('change', calc);
+document.querySelectorAll('.contaPreset').forEach(b=>{
+  b.addEventListener('click',()=>{ contaRange.value=b.dataset.conta; calc(); });
+});
+document.querySelectorAll('.tipoBtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tipoBtn').forEach(x=>{ x.classList.remove('bg-night-900','text-white'); x.classList.add('text-slate-600'); });
+    b.classList.add('bg-night-900','text-white'); b.classList.remove('text-slate-600');
+    // comercial consome mais em horário solar -> ligeiro ajuste payback
+    calc();
+  })
+});
+calc();
+window.addEventListener('resize', ()=>calc());
+
+// share
+document.getElementById('shareBtn').addEventListener('click', async()=>{
+  const txt = `Simulei minha economia solar na SunMax: ${economiaMensal.textContent}/mês com sistema ${potenciaTxt.textContent} (${placasTxt.textContent}). Faça sua simulação também!`;
+  if(navigator.share){ try{ await navigator.share({title:'SunMax - Simulador Solar', text:txt, url:location.href}); }catch(e){} }
+  else{ navigator.clipboard.writeText(txt+' '+location.href); showToast('Link copiado para a área de transferência!'); }
+});
+
+// form
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.remove('hidden');
+  setTimeout(()=>t.classList.add('hidden'), 3000);
+}
+document.getElementById('leadForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const nome=document.getElementById('nome').value.trim();
+  if(!nome) return;
+  showToast(`Obrigado, ${nome.split(' ')[0]}! Um especialista te chama no WhatsApp em até 2h ⚡`);
+  e.target.reset();
+});
+
+// sync simulador -> form conta
+contaRange.addEventListener('input', ()=>{
+  const v=parseInt(contaRange.value);
+  const sel=document.getElementById('formConta');
+  if(v<500) sel.selectedIndex=0;
+  else if(v<900) sel.selectedIndex=1;
+  else if(v<1500) sel.selectedIndex=2;
+  else sel.selectedIndex=3;
+});
+</script>
+</body>
+</html>
